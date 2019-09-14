@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+		<title>Administration</title>
+		<meta name="description" content="Gestion Scolaire MyGesCo" />
+		<meta name="keywords" content="css transforms, circular navigation, round navigation, circular menu, tutorial" />
+		<meta name="author" content="COULIBALY-Issa-MProCompte" />
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="css/component2.css" />
+		<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+		<link th:href="@{css/freelancer.min.css}" rel="stylesheet">	
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">	
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+		
+		
+		<script src="js/modernizr-2.6.2.min.js"></script>
+
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-7243260-2']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();/* 
+<li><a th:href="@{#}" onclick="ajouterCycle()"><span> cycles</span></a></li>
+<li><a th:href="@{#}" onclick="ajouterClasse()"><span>Ajouter<br> une<br>classe</span></a></li>
+<li><a th:href="@{#}" onclick="affecterMatiere()"><span>Affecter<br>une<br>Matière</span></a></li>
+<li><a th:href="@{#}" onclick="affecterProf()"><span>Affecter<br>un Prof</span></a></li>
+<li><a th:href="@{#}" onclick="inscrireEleve()"><span>Inscrire<br>un élève</span></a></li>
+<li><a th:href="@{#}" onclick="ajouterUtilisateur()"><span>utilisateur</span></a></li>
+<li><a th:href="@{#}"><span>Follow</span></a></li> */
+</script>
+<script>
+
+function cacherLesElements(){
+	document.getElementById("ajouterCycle").style.display = 'none';
+	document.getElementById("ajouterClasse").style.display = 'none';
+	document.getElementById("affecterMatiere").style.display = 'none';
+	document.getElementById("AjoutNouvMatiere").style.display = 'none';
+	document.getElementById("affecterProf").style.display = 'none';
+	document.getElementById("inscrireEleve").style.display = 'none';
+	document.getElementById("ajouterUtilisateur").style.display = 'none';
+}
+function ajouterCycle(){
+	cacherLesElements();
+	document.getElementById("ajouterCycle").style.display = 'block';
+	
+	
+}
+function ajouterClasse(){
+	cacherLesElements();
+	document.getElementById("ajouterClasse").style.display = 'block';
+	
+}
+function affecterMatiere(){
+	cacherLesElements();
+	document.getElementById("affecterMatiere").style.display = 'block';
+	
+}
+
+
+function ajouterUneNouvelleMatiere(){
+	document.getElementById("AjoutNouvMatiere").style.display = 'block';
+}
+
+function AjouterLaMatiereDansLaListeBox(){
+	var nouvelleMatiere=document.getElementById("nouvelleMatiere").value;
+	if(nouvelleMatiere!=null){
+		// get reference to select element
+		var sel = document.getElementById('matiere');
+
+		// create new option element
+		var opt = document.createElement('option');
+
+		// create text node to add to option element (opt)
+		opt.appendChild( document.createTextNode(nouvelleMatiere) );
+
+		// set value property of opt
+		opt.value = nouvelleMatiere; 
+
+		// add opt to end of select box (sel)
+		sel.appendChild(opt); 
+	}
+}
+function affecterProf(){
+	cacherLesElements();
+	document.getElementById("affecterProf").style.display = 'block';
+}
+
+
+function inscrireEleve(){
+	cacherLesElements();
+	document.getElementById("inscrireEleve").style.display = 'block';
+	var onglets = document.getElementById("onglets");
+	var contenus = document.getElementById("contenus");
+
+	var liOnglet = onglets.getElementsByTagName("li");
+	var liContenu = contenus.getElementsByTagName("li");
+
+	liOnglet[0].className = "actif";
+	liContenu[0].className = "actif";
+
+	for (var i = 0; i < liOnglet.length; i++){
+		liOnglet[i].num = i;
+
+	    liOnglet[i].addEventListener("click", function(){
+	    
+			for (var j = 0; j < liOnglet.length; j++){
+				liOnglet[j].className="";
+				liContenu[j].className="";
+			}
+
+			liOnglet[this.num].className="actif";
+			liContenu[this.num].className="actif";
+		});
+	}
+}
+function ajouterUtilisateur(){
+	document.getElementById("ajouterUtilisateur").style.display = 'block';
+}
+</script>
+<script>
+function affecterCetteMatiere(){
+	
+	var cycleAffPr=document.getElementById("cycleAffPr").value;
+	var classeAffPr=document.getElementById("classeAffPr").value;
+	var matiereAffPr=document.getElementById("matiereAffPr").value;
+	var choix=matiereAffPr+"-"+classeAffPr+"-"+cycleAffPr;
+	if(cycleAffPr!='choisir...' && classeAffPr!='choisir...' && matiereAffPr!='choisir...'){
+		// get reference to select element
+		
+		var sel = document.getElementById('matiereAjoutees');
+
+		// create new option element
+		var opt = document.createElement('option');
+		
+		// create text node to add to option element (opt)
+		opt.appendChild( document.createTextNode(choix) );
+
+		// set value property of opt
+		opt.value = choix; 
+
+		// add opt to end of select box (sel)
+		sel.appendChild(opt);
+		
+	}
+}
+
+</script>
+<script src='https://code.jquery.com/jquery-git.js'>
+</script>
+<script type="js/scripts.js"></script>
+<script>
+//Upload image and show
+ /* 	$(document).ready(function() {
+  
+              $("input[name=file]").change(function () {
+                if (this.files && this.files[0]) {
+                	document.getElementById("avatar").style.display = 'none';
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = $('<img>').attr('src', e.target.result);
+                        $('.upload-image-preview').html(img);
+                    };
+
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+}); */
+$(document).ready(function() {
+	
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+   
+    $(".file-upload").on('change', function(){
+        readURL(this);
+    });
+    
+    $(".upload-button").on('click', function() {
+       $(".file-upload").click();
+    });
+});
+</script>
+<script type="text/javascript">
+//Material Select Initialization
+$(document).ready(function() {
+$('.mdb-select').materialSelect();
+});
+</script>
+	</head>
+	<body class="bg-primary" onload="cacherLesElements()">
+		<div class="container">
+			<!-- Top Navigation -->
+			<div class="codrops-top clearfix">
+				<a  href="http://localhost:8080"><span><i class="fas fa-arrow-circle-left"></i>Page précedente</span></a>
+				<span class="right"><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=16114"><span>Back to the Codrops Article</span></a></span>
+			</div>
+			<header class="bg-secondary text-white">
+				<h1>Administration De [ Nom de Mon Ecole] <span>Cliquer sur le Menu Pour Afficher les fonctionnalités</span></h1>	
+			</header>
+			
+			<div class="component">
+				<!-- Start Nav Structure -->
+				<button class="cn-button" id="cn-button">Menu</button>
+				<div class="cn-wrapper" id="cn-wrapper">
+					<ul>
+						<li><a  onclick="ajouterCycle()"><span> cycles</span></a></li>
+						<li><a 	onclick="ajouterClasse()"><span>Ajouter<br> une<br>classe</span></a></li>
+						<li><a  onclick="affecterMatiere()"><span>Affecter<br>une<br>Matière</span></a></li>
+						<li><a  onclick="affecterProf()"><span>Affecter<br>un Prof</span></a></li>
+						<li><a  onclick="inscrireEleve()"><span>Inscrire<br>un élève</span></a></li>
+						<li><a  onclick="ajouterUtilisateur()"><span>utilisateur</span></a></li>
+						<li><a onclick="recherche"><span>Recherche</span></a></li>
+					 </ul>
+				</div>
+				<!-- End of Nav Structure -->
+				
+			</div>
+			<section id="ajouterCycle" >
+					<div class="btn-dark" style="padding:7px;">
+						<p class="text-white">Un cycle universitaire est un programme d'études réparti sur plusieurs années et débouchant sur un titre ou grade spécifique.
+						<br>Par exemple:Au Mali les cycles d'études sont: Primaire, Sécondaire, Lycée,...
+						</p>
+						<form class="form-inline text-center" style=" padding-left:27%" th:action="@{/ajouterCycle}" method="post" >
+							
+						    <label class="sr-only" for="nouveauCycle">Nouveau Cycle</label>
+							<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="nouveauCycle" name="nomCycle" placeholder="Primaire,Secondaire,Lycée" Required>
+										
+							 <button type="submit" class="btn btn-primary btn-sm">Ajouter</button>&nbsp
+								  
+							 <label class="sr-only" for="listeDesCycles">Nos Cycles</label>
+							 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+							 <div class="input-group-addon">Cycle</div>
+								<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="listeDesCycles">
+									  <option selected disabled>Choose...</option>
+									  <option value="1">One</option>
+									  <option value="2">Two</option>
+									  <option value="3">Three</option>
+								</select>						 
+								</div>
+						</form>
+					</div>
+			</section>
+				
+			<section id="ajouterClasse" class="text-white ">
+				<form class="btn-dark" th:action="@{/ajouterClasse}" method="post" style="padding:7px;">
+					<p>Une classe appartient à un cycle d'études.<br>
+						Par exemple: au Mali la classe "11ème Sciences" appartient au cycle "Lycée"
+					</p>
+					 <div class="form-group">
+				      <label for="cycle">Selectionner Un Cycle</label>
+				      <select id="cycle" class="form-control" name="cycle" required>
+				        <option disabled>Choisir un cycle</option>
+				        <option value="Secondaire">Secondaire</option>
+				      </select>
+				    </div>
+				    <div class="form-group">
+				      <label for="classe">Nom de la classe</label>
+				      <input required type="text" id="classe" class="form-control" placeholder="3 ème année, 11ème Sciences,..." name="classe">
+				    </div>
+				   <div class="form-group">
+				      <label for="nombreMax">Nombre Maximal d'élèves</label>
+				      <input type="number" id="nombreMax" class="form-control" name="nombreMax" required>
+				    </div>
+				    
+				    <button type="submit" class="btn btn-success btn-sm">Ajouter cette Classe</button>
+				</form>
+				<div class="btn-dark" style="margin-top:7%;padding:7px;">
+					<h5 class="text-center">Liste des classes par cycle</h5>
+					<div class="form-group">
+				      <label for="cycle">Selectionner le Cycle</label>
+				      <select id="cycle" class="form-control" name="">
+				        <option disabled>Choisir un cycle</option>
+				      </select>
+				    </div>
+				   	<div class="form-group">
+				   		<label for="cycle">Classes Correspondantes</label>
+				      <select id="cycle" class="form-control" name="">
+				        <option disabled>Classe du cycle sélectionné</option>
+				      </select>
+				    </div>
+				</div>
+			</section>
+			<section id="affecterMatiere" >
+				<form th:action="@{/affecterMatiere}" method="post">
+					<div class="btn-dark " style="margin-top:7%;padding:7px;">
+						<h5 class="text-center">Affectation de Matières</h5>
+						<div class="form-inline">
+							<div class="form-group">
+						      <label for="cycle">Cycle &nbsp &nbsp &nbsp</label>
+						      <select id="cycle" class="form-control" name="cycle" requireed>
+						        <option disabled>Choisir un cycle</option>
+						        <option value="Primaire">Primaire</option>
+						        <option value="Secondaire">Secondaire</option>
+						      </select>
+						    </div>
+						   	<div class="form-group">
+						   		<label for="cycle">&nbsp &nbsp  Classe &nbsp &nbsp &nbsp &nbsp </label>
+						      <select id="classeSelect" class="form-control" name="nomClasse" required>
+						        <option disabled>Classe du cycle sélectionné</option>
+						     	<option value="9ème année">9ème année</option>
+						      </select>
+						    </div>
+					    </div>
+					    <br>
+					    <div class="form-inline">
+					    	<div class="form-group">
+						      <label for="matiere" class="text-left">Matière &nbsp</label>
+						      <select id="matiere" class="form-control" name="nomMatiere" required>
+							        <option disabled>Choisir une matière</option>
+							  </select>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label for="coefficient">&nbsp &nbsp  coefficient &nbsp</label>
+						      <input type="number" id="coefficient" name="coefficient" class="form-control" required>
+						    </div>
+						    
+					    	
+					    </div>
+			    		<button type="submit" class="btn btn-success " >Affecter</button>
+			    		<br>
+			    		<button class="btn btn-success btn-sm" onclick="ajouterUneNouvelleMatiere();return false;"><i class="fas fa-plus-circle"></i>Ajouter une nouvelle Matière</button>
+					</div>
+				</form>
+			</section>
+			<section id="AjoutNouvMatiere" class="btn-dark " style="margin-top:0%" >
+				<div class="form-group">
+					<label for="coefficient">Nom de la nouvelle matière </label>
+					<input type="text"  id="nouvelleMatiere"class="form-control">
+				</div>
+				<button class="btn btn-success btn-sm" onclick="AjouterLaMatiereDansLaListeBox();return false;">Ajouter</button>
+				
+			</section>
+			<section  id="affecterProf">
+				<form class="form-horizontal row-border" th:action="@{/affecterProf}" method="post" enctype="multipart/form-data">
+					<div class="row btn-dark">
+						<div class="col-md-6" >
+							<div class="row">
+							    <div class="col-md-12 col-sm-6 col-xs-12">
+							      <div class="panel panel-default">
+							        <div class="panel-heading clearfix">
+							          <i class="icon-calendar"></i>
+							          <h3 class="panel-title">Informations de l'enseignement</h3>
+							        </div>
+							       
+							        <div class="panel-body">
+							            <div class="form-group">
+							              <label class="col-md-3 control-label">C.I.N ou Passport</label>
+							              <div class="col-md-10">
+							                <input type="text" name="cin" class="form-control" placeholder="B8754565" Required>
+							              </div>
+							            </div>
+							            <div class="form-group">
+							              <label class="col-md-3 control-label">Nom</label>
+							              <div class="col-md-10">
+							                <input class="form-control" type="text" name="nom" placeholder="COULIBALY" Required>
+							              </div>
+							            </div>
+							            <div class="form-group">
+							              <label class="col-md-3 control-label">Prenom</label>
+							              <div class="col-md-10">
+							                <input class="form-control" type="text" name="prenom" placeholder="Issa" Required>
+							              </div>
+							            </div>
+							      
+							            </div>
+							            <div class="form-group">
+							              <label class="col-md-3 control-label">Situation sociale</label>
+							              <div class="col-md-10">
+											<select class="form-control input-lg" name="situationSociale">
+											        <option value="Rien à Signaler">Rien à Signaler</option>
+											        <option value="Marié(e) sans enfant">Marié(e) sans enfant</option>
+											        <option value="Marié(e) avec enfant">Marié(e) avec enfant</option>
+											        <option value="Célibataire">Célibataire</option>
+											        <option value="divorcé avec enfant">divorcé avec enfant</option>
+											        <option value="divorcé sans enfant">divorcé sans enfant</option>
+											</select>						             
+										  </div>
+							            </div>
+							            
+							            <div class="form-group">
+							              <label class="col-md-3 control-label">Date de Naissance</label>
+							              <div class="col-md-10">
+							                <input type="date" name="dateNaissance" class="form-control" Required>
+							              </div>
+							            </div>
+							            <div class="form-group">
+							              <label class="col-md-3 control-label">téléphone</label>
+							              <div class="col-md-10">
+							                <input type="tel" name="telephone"  class="form-control" Required>
+							              </div>
+							            </div>
+							            <div class="form-group">
+							              <label class="col-md-3 control-label">Adresse</label>
+							              <div class="col-md-10">
+							                <input type="text" name="adresse" class="form-control" Required>
+							                <i class="icon-pencil input-icon"></i>
+							              </div>
+							            </div>
+							            <div class="form-group">
+							              <label for="labelfor" class="col-md-3 control-label" >email</label>
+							              <div class="col-md-10">
+							                <input type="mail" name="email" id="email" placeholder="binkeissa16@gmail.com" class="form-control" >
+							              </div>
+							          	  <div class="col-md-10">
+							          	  	<button type="submit" class="btn btn-primary btn-sm">Affecter</button>&nbsp
+							              </div>
+							        </div>
+							      </div>
+							    </div>
+							  </div>
+							  
+						</div>
+						<div clas="col" >
+							 <!--   <div id="avatar">
+							   	 <img class="img-fluid rounded mb-5" src="img/portfolio/avatar.png"/>
+							   </div>	
+						       <div class="upload-image-preview">
+						       </div>
+						        <input type="file" name="file" value="Upload Image" />						        
+						 -->
+						<div class="avatar-wrapper">
+							<img class="profile-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwS5Mafjo9A-ODZXWeypFfk1Yh8i7VKAjDa2RDUsCrR4dqkkmaBw" />
+							<div class="upload-button">
+								<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+							</div>
+							<input name="profil" class="file-upload" type="file" accept="image/*"/>
+							<div>Photo d'identité</div>
+						</div>
+							<div class="form-inline text-center">
+								
+								<label class="sr-only" for="classeAffPr">classe</label>
+								 <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+								 <div class="input-group-addon">Classe</div>
+									<select  name="nomClasse" class="custom-select mb-2 mr-sm-2 mb-sm-0" id="classeAffPr" Required>
+										  <option selected disabled>choisir...</option>
+										  <option value="9ème année">9ème année</option>
+										  <option value="2">Two</option>
+										  <option value="3">Three</option>
+									</select>						 
+								</div>
+									  
+								 <label class="sr-only" for="cycleAffPr">Nos Cycles</label>
+								 <div class="form-group mb-2 mr-sm-2 mb-sm-0">
+								 <div class="input-group-addon">Cycle</div>
+									<select name="nomCycle" class="custom-select mb-2 mr-sm-2 mb-sm-0" id="cycleAffPr" Required>
+										  <option selected disabled>choisir...</option>
+										  <option value="Secondaire">Secondaire</option>
+										  <option value="2">Two</option>
+										  <option value="3">Three</option>
+									</select>						 
+								</div>
+									
+						</div>
+						<div>
+								 
+								<div class="input-group-addon">Matières à enseigner:</div>
+									<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										<select name="matieresAffectees" class="selectpicker  mb-2 mr-sm-2 mb-sm-0" multiple data-live-search="true" Required>
+										  <option>Math</option>
+										  <option>Physique</option>
+										  <option>Relish</option>
+										</select>
+								    	
+									</div>
+									
+								</div>
+					 	</div>
+					</div>
+				</form>
+				
+			</section>
+			<section id="inscrireEleve">
+				<div class="row btn-dark" style="color:white">
+					
+					<div class="col-md-6" >
+						<form action="essaie" method="post">
+							<div id="panneau">
+								<ul id="onglets" class="clearfix">
+						          <li >Identité </li>
+						          <li >Status</li>
+						          <li >Parents</li>
+						        </ul>
+						        <ul id="contenus" style="color:black">
+						          <li >
+													<div class="row">
+													    <div class="col-md-12 col-sm-6 col-xs-12">
+													      <div class="panel panel-default">
+													        <div class="panel-heading clearfix">
+													          <i class="icon-calendar"></i>
+													          <h3 class="panel-title">Informations Sur l'élève <h3>
+													        </div>
+													       
+													        <div class="panel-body">
+													            
+													            <div class="form-group">
+													              <label class="col-md-3 control-label">Nom</label>
+													              <div class="col-md-10">
+													                <input class="form-control" type="text" name="nom" placeholder="COULIBALY">
+													              </div>
+													            </div>
+													            <div class="form-group">
+													              <label class="col-md-3 control-label" for="prenom">Prenom</label>
+													              <div class="col-md-10">
+													                <input class="form-control" type="text" name="prenom" placeholder="Issa">
+													              </div>
+													            </div>
+													            
+													            <div class="form-group">
+													              <label class="col-md-3 control-label">Sexe</label>
+													              <div class="col-md-10">
+																	<select class="form-control input-lg" name="sexe">
+																	        <option value="">Masculin</option>
+																	        <option value="">Feminin</option>
+						
+																	</select>						             
+																  </div>
+													            </div>
+													            <div class="form-group">
+													              <label class="col-md-3 control-label">Situation sociale</label>
+													              <div class="col-md-10">
+																	<select class="form-control input-lg" name="situationSociale">
+																	        <option value="">Marié(e) sans enfant</option>
+																	        <option value="">Marié(e) avec enfant</option>
+																	        <option value="">Célibataire</option>
+																	        <option value="">divorcé avec enfant</option>
+																	        <option value="">divorcé sans enfant</option>
+																	</select>						             
+																  </div>
+													            </div>
+													            <div class="form-group">
+													              <label class="col-md-3 control-label">Date de Naissance</label>
+													              <div class="col-md-10">
+													                <input type="date" name="dateNaissance" class="form-control">
+													              </div>
+													            </div>
+						                        <div class="form-group">
+													              <label class="col-md-3 control-label">Lieu de Naissance</label>
+													              <div class="col-md-10">
+													                <input type="text" name="lieuNaissance" class="form-control">
+													              </div>
+													            </div>
+						                          <div class="form-group">
+													              <label class="col-md-3 control-label">Etat Sanitaire(maladies)</label>
+													              <div class="col-md-10">
+													                <input type="text" name="etatSanitaire" class="form-control">
+													              </div>
+													            </div>
+						                          <div class="form-group">
+													              <label class="col-md-3 control-label">Situation familiale</label>
+													              <div class="col-md-10">
+																	<select class="form-control input-lg" name="situationSociale">
+						                              <option value="">Rien à signaler</option>
+																	        <option value="">Orphelin de mère</option>
+																	        <option value="">Orphelin de père</option>
+																	        <option value="">Orphelin total</option>
+																	        
+																	        
+																	</select>						             
+																  </div>
+													            </div>
+													            <div class="form-group">
+													              <label class="col-md-3 control-label">téléphone</label>
+													              <div class="col-md-10">
+													                <input type="tel" name="telephone"  class="form-control">
+													              </div>
+													            </div>
+													            <div class="form-group">
+													              <label class="col-md-3 control-label">Adresse</label>
+													              <div class="col-md-10">
+													                <input type="text" name="adresse" class="form-control">
+													                <i class="icon-pencil input-icon"></i>
+													              </div>
+													            </div>
+													            <div class="form-group">
+													              <label for="labelfor" class="col-md-3 control-label">email</label>
+													              <div class="col-md-10">
+													                <input type="mail" name="email" id="email" placeholder="binkeissa16@gmail.com" class="form-control">
+													              </div>
+													          	  
+													        </div>
+													      </div>
+													    </div>
+													  </div>
+													  
+												</div>
+						          </li>
+						          <li >
+						           <div class="form-group">
+						              <label for="etablissementOrigine">Etablissement d'origine</label>
+						              <input type="text" class="form-control" id="etablissementOrigine"  >
+						            </div>
+						             <div class="form-group">
+						                <label for="classe">classe</label>
+						                <select class="form-control" id="classe" name="classe">
+						                  <option>10ème</option>
+						                  <option>11ème</option>
+						                  <option>terminale sciences</option>
+						                </select>
+						              </div>
+						            <div class="form-check">
+						              <input type="checkbox" class="form-check-input" id="redoublant" name="redoublant">
+						              <label class="form-check-label" for="redoublant">Redoublant?-cocher si Oui</label>
+						            </div>
+						 <div class="form-check">
+						              <input type="checkbox" class="form-check-input" id="boursier" name="boursier">
+						              <label class="form-check-label" for="boursier">boursier?-cocher si Oui</label>
+						            </div>
+						             <div class="form-check">
+						              <input type="checkbox" class="form-check-input" id="cantine" name="cantine">
+						              <label class="form-check-label" for="cantine">abonnement à la cantine?-cocher si Oui</label>
+						            </div>
+						             <div class="form-check">
+						              <input type="checkbox" class="form-check-input" id="bibliothèque" name="bibliothèque">
+						              <label class="form-check-label" for="bibliothèque">abonnement à la bibliotèque?-cocher si Oui</label>
+						            </div>
+						             <div class="form-check">
+						              <input type="checkbox" class="form-check-input" id="fourniture" name="fourniture">
+						              <label class="form-check-label" for="fourniture">prise en charge des fournitures?-cocher si Oui</label>
+						            </div>
+						          </li>
+						          <li >
+						             <div class="form-row">
+						              <div class="col">
+						                <input type="text" class="form-control" placeholder="Nom">
+						              </div>
+						              <div class="col">
+						                <input type="text" class="form-control" placeholder="Prénom">
+						              </div>
+						            </div>
+						            <div class="form-row">
+						              <div class="form-group col-md-6">
+						                <label for="email">Email</label>
+						                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+						              </div>
+						              <div class="form-group col-md-6">
+						                <label for="telephone">téléphone</label>
+						                <input type="tel" class="form-control" id="telephone" >
+						              </div>
+						            </div>
+						            <div class="form-group">
+						              <label for="profession">Profession</label>
+						              <input type="text" class="form-control" id="profession" placeholder="Commerçant">
+						            </div>
+						            <div class="form-group">
+						              <label for="adresse">Adresse</label>
+						              <input type="text" class="form-control" id="adresse" placeholder="Sokorodji, Rue 560, Porte 396 Bko-Mli">
+						            </div>
+						            <div class="col-md-10">
+										<button type="submit" class="btn btn-primary btn-sm">Inscrire</button>&nbsp
+									</div>
+						                    </li>
+						        </ul>
+						     </div>
+				</form>
+					</div>
+					<div class="col-md-6">
+						<div class="avatar-wrapper">
+							<img class="profile-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwS5Mafjo9A-ODZXWeypFfk1Yh8i7VKAjDa2RDUsCrR4dqkkmaBw" />
+							<div class="upload-button">
+								<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+							</div>
+							<input class="file-upload" type="file" accept="image/*"/>
+							<div>Photo d'identité</div>
+							
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="ajouterUtilisateur">
+				
+			</section>
+		</div><!-- /container -->
+		
+		<script th:src="@{js/polyfills.js}"></script>
+		<script th:src="@{js/demo2.js}"></script>
+	</body>
+</html>
